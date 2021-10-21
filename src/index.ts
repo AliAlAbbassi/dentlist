@@ -5,24 +5,16 @@ import 'dotenv-safe/config'
 import express from 'express'
 import session from 'express-session'
 import Redis from 'ioredis'
-import path from 'path'
 import 'reflect-metadata'
 import { buildSchema } from 'type-graphql'
-import { createConnection } from 'typeorm'
+import { createConnection, getConnectionOptions } from 'typeorm'
 import { COOKIE_NAME, __prod__ } from './constants'
-import { Hello } from './entities/Hello'
 import { HelloResolver } from './resolvers/HelloResolver'
 
 export const redis = new Redis(process.env.REDIS_URL)
 const main = async () => {
-  await createConnection({
-    type: 'postgres',
-    url: process.env.DATABASE_URL,
-    logging: true,
-    // synchronize: true,
-    migrations: [path.join(__dirname, './migrations/*')],
-    entities: [Hello],
-  })
+  const connectionOptions = await getConnectionOptions()
+  await createConnection(connectionOptions)
 
   // conn.runMigrations()
 

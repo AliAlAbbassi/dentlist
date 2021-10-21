@@ -23,12 +23,12 @@ const ioredis_1 = __importDefault(require("ioredis"));
 require("reflect-metadata");
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const ormconfig_1 = __importDefault(require("../ormconfig"));
 const constants_1 = require("./constants");
 const HelloResolver_1 = require("./resolvers/HelloResolver");
 exports.redis = new ioredis_1.default(process.env.REDIS_URL);
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const connectionOptions = yield (0, typeorm_1.getConnectionOptions)();
-    yield (0, typeorm_1.createConnection)(connectionOptions);
+    yield (0, typeorm_1.createConnection)(ormconfig_1.default);
     const app = (0, express_1.default)();
     const RedisStore = (0, connect_redis_1.default)(express_session_1.default);
     app.set('trust proxy', 1);
