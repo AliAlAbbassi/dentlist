@@ -1,14 +1,16 @@
 // import path from 'path'
 
-module.exports = [ {
+module.exports = [
+  {
     type: 'postgres',
     url: process.env.DATABASE_URL,
     logging: true,
     synchronize: true,
-    migrations: ["dist/src/migration/*.ts"],
-    entities: ["dist/src/entity/*.ts"],
+    migrations: ['dist/src/migration/*.ts'],
+    entities: ['dist/src/entity/*.ts'],
     cli: {
-        entitiesDir: "dist/src/entity",
-        migrationsDir: "dist/src/migration",
+      entitiesDir: 'dist/src/entity',
+      migrationsDir: 'dist/src/migration',
     },
-} ]
+  },
+]
